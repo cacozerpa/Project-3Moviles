@@ -1,5 +1,5 @@
 const {Router} = require('express');
-const { createUser, updateUser, deleteUser } = require('../helpers/user.auth');
+const { createUser, updateUser, deleteUser } = require('../helpers/auth.user');
 const router = Router();
 
 router.post('/create', createUser);
