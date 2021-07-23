@@ -6,6 +6,10 @@ const session = require('express-session');
 
 require('dotenv').config({path:'../.env'});
 
+const UserRoutes = require('./routes/user');
+const AuthRoutes = require('./routes/auth.user');
+const LoginRoute = require('./routes/user.login');
+
 const app = express();
 
 app.use(cors({
@@ -36,6 +40,10 @@ passport.deserializeUser(function(user, done) {
   console.log('User ID: ' + user.id);
   return done(null, user.id);
 })
+
+app.use(UserRoutes);
+app.use(AuthRoutes);
+app.use(LoginRoute);
 
 const PORT = process.env.PORT || 3000;
 
