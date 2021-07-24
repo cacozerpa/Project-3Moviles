@@ -34,6 +34,7 @@ const querys = {
     UPDATE_PRODUCT: `UPDATE public. "Product" SET name = $1, dsc = $2, price = $3 WHERE id = $5`,
     DELETE_PRODUCT: `DELETE FROM public. "Product" WHERE id = $1`,
     GET_PRODUCTS: `SELECT * FROM public. "Products"`,
+    GET_PRODUCTBYID:`SELECT * FROM public. "Products" WHERE id = $1`,
     GET_PRODUCTSBYCOMMERCE: `SELECT * FROM public. "Products" WHERE idcommerce = $1`
 }
 

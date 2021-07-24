@@ -20,11 +20,11 @@ const getCommerceById = async (req, res) => {
         const checkId = await db.query(queries.CHECKCOMMERCEID, [id]);
     
         if(checkId.rows != ''){
-            const response = await db.query(queries.GET_TASKBYID, [id]);
-            console.log(`Showing Task ${id}!`);
+            const response = await db.query(queries.GET_PRODUCTBYID, [id]);
+            console.log(`Showing Product ${id}!`);
             res.status(200).send(response.rows);
         }else{
-            res.status(400).send(`Task ${id} not found!`)
+            res.status(400).send(`Product ${id} not found!`)
         }
     
         }catch(err){
