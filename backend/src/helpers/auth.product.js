@@ -52,10 +52,10 @@ const deleteProduct = async (req, res) => {
        const id = req.params.id;
         
        await db.query('BEGIN'); 
-       const checkId = await db.query(queries.CHECKProductID, [id]);
+       const checkId = await db.query(queries.CHECKPRODUCTID, [id]);
 
        if(checkId != '') {
-           const response = await db.query(queries.DELETE_Product, [id]);
+           const response = await db.query(queries.DELETE_PRODUCT, [id]);
            console.log(response.rows);
            res.status(200).send(`Product ${id} deleted!`);
             await db.query('COMMIT');
