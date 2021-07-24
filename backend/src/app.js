@@ -9,6 +9,10 @@ require('dotenv').config({path:'../.env'});
 const UserRoutes = require('./routes/user');
 const AuthRoutes = require('./routes/auth.user');
 const LoginRoute = require('./routes/user.login');
+const CommerceRoutes = require('./routes/commerce');
+const AuthCommerceRoutes = require('./routes/auth.commerce');
+const ProductRoutes = require('./routes/product');
+const AuthProductRoutes = require('./routes/auth.product');
 
 const app = express();
 
@@ -44,6 +48,10 @@ passport.deserializeUser(function(user, done) {
 app.use(UserRoutes);
 app.use(AuthRoutes);
 app.use(LoginRoute);
+app.use(CommerceRoutes);
+app.use(AuthCommerceRoutes);
+app.use(ProductRoutes);
+app.use(AuthProductRoutes);
 
 const PORT = process.env.PORT || 3000;
 
