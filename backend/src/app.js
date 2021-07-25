@@ -36,7 +36,7 @@ app.use(passport.session());
 passport.use('local', require('./utils/strategy'));
 
 passport.serializeUser(function(user, done) {
-  console.log('User logged: ' + user.id + ' ' + user.username);
+  console.log('User logged: ' + user.id + ' ' + user.email);
   done(null, user);
 })
 

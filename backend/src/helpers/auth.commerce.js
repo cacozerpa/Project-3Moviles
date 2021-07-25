@@ -8,16 +8,16 @@ const createCommerce = async (req, res) => {
     
     await db.query('BEGIN');
 
-    const checkExistence = db.query(queries.CHECKEXISTENCE, [name]);
+    const checkExistence = await db.query(queries.CHECKEXISTENCE, [name]);
 
     if(checkExistence.rows == ''){
-        const res = await db.query(queries.CREATE_COMMER, [name, category, location, dsc]);
-        console.log('Commerce Created' + res.rows);
+        const response = await db.query(queries.CREATE_COMME, [name, category, location, dsc]);
+        console.log('Commerce Created' + response.rows);
         await db.query('COMMIT');
         res.status(200).send(`Commerce registration (${name}) successfull!`);
     }else{
         await db.query('ROLLBACK');
-        res.status(400).send('Commer already Exist!');
+        res.status(400).send('Commerce already Exist!');
     }
     
     }catch(err) {
@@ -35,12 +35,18 @@ const updateCommerce = async (req, res) => {
     try{
        await db.query('BEGIN'); 
        const checkId = await db.query(queries.CHECKCOMMERCEID, [id]);
+       const checkExistence = await db.query(queries.CHECKEXISTENCE, [name]);
         
        if(checkId.rows != ''){
+           if(checkExistence.rows == ''){
         const response = await db.query(queries.UPDATE_COMMERCE, [name, category, location, dsc, id]);
         console.log(response.rows);
         res.status(200).send(`Commerce ${id} updated!`)
         await db.query('COMMIT');
+       }else{
+        console.log(`Commerce name ${name} already exist!`)
+        res.status(400).send(`Commerce ${name} already exist!`);
+       }
        }else{
         console.log(checkId);
         await db.query('ROLLBACK');

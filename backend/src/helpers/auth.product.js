@@ -3,12 +3,13 @@ const queries = require('../utils/queries');
 
 const createProduct = async (req, res) => {
     const {name, dsc, price} = req.body;
+    const id = req.params.id
 
     try {
     
     await db.query('BEGIN');
     
-    const res = await db.query(queries.CREATE_, [name, dsc, price]);
+    const res = await db.query(queries.CREATE_PRODUCT, [id, name, dsc, price]);
     console.log('Product Created' + res.rows);
     await db.query('COMMIT');
     res.status(200).send(`Product registration (${name}) successfull!`);

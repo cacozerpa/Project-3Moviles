@@ -3,18 +3,16 @@ const bcrypt = require('bcrypt');
 const queries = require('../utils/queries');
 
 const createUser = async (req, res) => {
-  const { username, email, password } = req.body;
+  const {email, password} = req.body;
 
   try {
     await db.query('BEGIN');
-    const checkUser = await db.query(queries.CHECKUSER, [username]);
     const checkEmail = await db.query(queries.CHECKEMAIL, [email]);
 
-    if (checkUser.rows == '') {
       if (checkEmail.rows == '') {
         const salt = bcrypt.genSaltSync(12);
         const HashPass = bcrypt.hashSync(password, salt);
-        const response = await db.query(queries.CREATE_USER, [username, email, HashPass]);
+        const response = await db.query(queries.CREATE_USER, [email, HashPass]);
         console.log(response.rows);
         res.status(200).send('User Created!')
         await db.query('COMMIT');
@@ -22,10 +20,6 @@ const createUser = async (req, res) => {
         res.status(400).send('Email Already Exists!');
         console.log('Email Already Exists!');
       }
-    } else {
-      res.status(400).send('User Already Exists!');
-      console.log('User Already Exists!');
-    } 
   } catch (err) {
     res.status(500).send('Server Error! ' + err);
     await db.query('ROLLBACK');

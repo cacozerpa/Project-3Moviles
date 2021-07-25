@@ -33,23 +33,20 @@ const getUsersByUserId = async (req,res) => {
     }
 }
 
-const getUserByUsername = async (username) => {
+const getUserByEmail = async (email) => {
 
     try{ 
        
-        const response = await db.query(queries.GET_USERBYUSERNAME, [username]);
-        
+        const response = await db.query(queries.GET_USERBYEMAIL, [email]);
         if(response){
-            console.log('Username Found!')
+            console.log('Email Found!')
             return ({
-                id: response.rows[0].id,
-                name: response.rows[0].name,
-                username: response.rows[0].username,
-                email: response.rows[0].email,
-                password: response.rows[0].password
+                id: response.rows[0].user_id,
+                email: response.rows[0].user_email,
+                password: response.rows[0].user_password
             })
         }else{
-           console.log('Username Not Found!')
+           console.log('Email Not Found!')
            return null;
         }
 
@@ -62,5 +59,5 @@ const getUserByUsername = async (username) => {
 module.exports = {
     getUsers,
     getUsersByUserId,
-    getUserByUsername
+    getUserByEmail
 }

@@ -3,13 +3,13 @@ const userHelper = require('../helpers/user');
 const bcrypt = require('bcrypt');
 
 const localOptions = {
-  usernameField: 'username',
+  usernameField: 'email',
   passwordField: 'password'
 };
 
-module.exports = new localStrategy(localOptions, async (username, password, done)=>{
+module.exports = new localStrategy(localOptions, async (email, password, done)=>{
   try{
-    const user = await userHelper.getUserByUsername(username);
+    const user = await userHelper.getUserByEmail(email);
     if(user != ''){
       const pass = await bcrypt.compare(password, user.password);
       if(pass != ''){
@@ -18,7 +18,7 @@ module.exports = new localStrategy(localOptions, async (username, password, done
         return done(null, false, {message: 'Password Incorrect!'})
       }
     }else{
-      return done(null, false), {message: 'User not Found!'};
+      return done(null, false), {message: 'Email not Found!'};
     }
   }catch(err){
     done(err);
