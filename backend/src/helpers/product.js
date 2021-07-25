@@ -38,7 +38,7 @@ const getProductByCommerce = async (req, res) => {
         const checkId = await db.query(queries.CHECKCOMMERCEID, [id]);
 
         if(checkId.rows != ''){
-            const response = await db.query(queries.GET_PRODUCTBYCOMMERCEID, [id]);
+            const response = await db.query(queries.GET_PRODUCTSBYCOMMERCE, [id]);
             console.log(`Showing Commerce (${id}) Products!`);
             res.status(200).send(response.rows);
         }else{
