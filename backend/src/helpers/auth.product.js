@@ -9,10 +9,10 @@ const createProduct = async (req, res) => {
     
     await db.query('BEGIN');
     
-    const res = await db.query(queries.CREATE_PRODUCT, [id, name, dsc, price]);
-    console.log('Product Created' + res.rows);
+    const response = await db.query(queries.CREATE_PRODUCT, [id, name, dsc, price]);
+    console.log('Product Created' + response.rows);
     await db.query('COMMIT');
-    res.status(200).send(`Product registration (${name}) successfull!`);
+    res.status(200).send(`Product registration (${name}) to Commerce ${id} successfull!`);
     
     
     }catch(err) {
@@ -22,10 +22,9 @@ const createProduct = async (req, res) => {
 }
 
 const updateProduct = async (req, res) => {
+    
     const id = req.params.id;
-
     const {name, dsc, price} = req.body;
-    console.log(name, dsc, price);
 
     try{
        await db.query('BEGIN'); 
