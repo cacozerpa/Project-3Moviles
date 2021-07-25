@@ -33,9 +33,9 @@ const querys = {
     CREATE_PRODUCT: `INSERT INTO public. "Product" (commerce_id, product_name, product_dsc, product_price) VALUES ($1, $2, $3, $4) RETURNING *`,
     UPDATE_PRODUCT: `UPDATE public. "Product" SET product_name = $1, product_dsc = $2, product_price = $3 WHERE product_id = $4`,
     DELETE_PRODUCT: `DELETE FROM public. "Product" WHERE product_id = $1`,
-    GET_PRODUCTS: `SELECT * FROM public. "Products"`,
-    GET_PRODUCTBYID:`SELECT * FROM public. "Products" WHERE product_id = $1`,
-    GET_PRODUCTSBYCOMMERCE: `SELECT * FROM public. "Products" WHERE commerce_id = $1`,
+    GET_PRODUCTS: `SELECT * FROM public. "Product"`,
+    GET_PRODUCTBYID:`SELECT * FROM public. "Product" WHERE product_id = $1`,
+    GET_PRODUCTSBYCOMMERCE: `SELECT * FROM public. "Product" WHERE commerce_id = $1`,
 
     //Admin Queries
 
