@@ -10,7 +10,7 @@ const localOptions = {
 module.exports = new localStrategy(localOptions, async (email, password, done)=>{
   try{
     const user = await userHelper.getUserByEmail(email);
-    if(user != ''){
+    if(user != null){
       const pass = await bcrypt.compare(password, user.password);
       if(pass != ''){
         return done(null, user)

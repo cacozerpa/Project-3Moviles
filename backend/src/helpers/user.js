@@ -36,9 +36,8 @@ const getUsersByUserId = async (req,res) => {
 const getUserByEmail = async (email) => {
 
     try{ 
-       
         const response = await db.query(queries.GET_USERBYEMAIL, [email]);
-        if(response){
+        if(response.rows != ''){
             console.log('Email Found!')
             return ({
                 id: response.rows[0].user_id,
@@ -51,7 +50,6 @@ const getUserByEmail = async (email) => {
         }
 
     }catch(err){
-        res.status(500).send('Server Error: ' + err);
         throw err; 
     }
 }
