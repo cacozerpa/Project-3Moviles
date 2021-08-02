@@ -12,7 +12,7 @@ const createCar = async  (req, res) => {
     console.log('Product Found!');
     console.log(req.session)
     car = req.session.car;
-    car.push([product.rows[0].product_id, product.rows[0].product_name, product.rows[0].product_price]);
+    car.push({id: product.rows[0].product_id, name: product.rows[0].product_name, price: product.rows[0].product_price});
     req.session.car = car
 
     res.status(200).send(req.session);
@@ -37,13 +37,19 @@ const deleteItem = async (req, res) => {
             console.log('Product Found!');
 
             car = req.session.car;
-            itemIndex = car.indexOf(checkId.rows[0].product_id);
+            const itemIndex = car.findIndex((element, itemIndex) => {
+                console.log(element.id)
+                if (element.id === checkId.rows[0].product_id) {
+                  return element.id;
+                }
+              });
             console.log("el index: " + itemIndex);
             if(itemIndex != -1){
             car.splice(itemIndex, 1);
             console.log(req.session);
             res.status(200).send('Product Deleted!')
         }else{
+            console.log('Product not found in the car!')
             res.status(400).send('Product not Found in the car!')
         }
 
