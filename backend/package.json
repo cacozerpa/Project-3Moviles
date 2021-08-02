@@ -19,6 +19,7 @@
   "homepage": "https://github.com/cacozerpa/Project-3Moviles#readme",
   "dependencies": {
     "bcrypt": "^5.0.1",
+    "connect-pg-simple": "^6.2.1",
     "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",

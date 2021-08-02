@@ -17,8 +17,9 @@ const querys = {
     CHECKID: `SELECT * FROM public. "Users" WHERE user_id = $1`,
     CHECKEXISTENCE: `SELECT * FROM public. "Commerce" WHERE commerce_name = $1`,
     CHECKCOMMERCEID: `SELECT * FROM public. "Commerce" WHERE commerce_id = $1`,
-    CHECKPRODUCTID: `SELECT FROM public. "Product" WHERE product_id = $1`,
-    CHECKADMIN: `SELECT FROM public. "Admin" WHERE username = $1`,
+    CHECKPRODUCTID: `SELECT * FROM public. "Product" WHERE product_id = $1`,
+    CHECKADMIN: `SELECT * FROM public. "Admin" WHERE admin_username = $1`,
+    CHECKPAYMENT: `SELECT * FROM public. "Payment" WHERE payment_id = $1`,
 
     //Commerce Queries
 
@@ -39,7 +40,12 @@ const querys = {
 
     //Admin Queries
 
-    CREATE_ADMINPASS: `UPDATE public. "Admin" SET password = $1 WHERE username = $2`,
+    CREATE_ADMINPASS: `UPDATE public. "Admin" SET admin_password = $1 WHERE admin_username = $2 RETURNING *`,
+
+    //Payment Queries
+
+    CREATE_PAYMENT: `INSERT INTO public. "Payment" (commerce_id,  payment_from, payment_to, payment_name, payment_ci, payment_date,  payment_code, payment_amount) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *`,
+    DELETE_PAYMENT: `DELETE FROM public. "Payment" WHERE payment_id = $1`,
 }
 
 module.exports = querys;

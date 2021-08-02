@@ -54,8 +54,29 @@ const getUserByEmail = async (email) => {
     }
 }
 
+const getUserAdmin = async (username) => {
+    try{
+        const response = await db.query(queries.CHECKADMIN, [username]);
+        
+        if(response.rows != ''){
+            console.log('Admin Found!');
+            console.log('hey:' + response.rows[0].password);
+            return({
+                id: response.rows[0].admin_id,
+                username: response.rows[0].admin_username,
+                password: response.rows[0].admin_password
+            })
+        }else{
+            console.log('Admin not Found!');
+        }
+    }catch(err){
+        throw err;
+    }
+}
+
 module.exports = {
     getUsers,
     getUsersByUserId,
-    getUserByEmail
+    getUserByEmail,
+    getUserAdmin
 }
